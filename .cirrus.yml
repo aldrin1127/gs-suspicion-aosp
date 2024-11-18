@@ -9,7 +9,7 @@ task:
 
   Install_dependencies_script:
     - pacman -Syyuu --noconfirm
-    - pacman -Syyuu --noconfirm bash curl git jq python sudo wget
+    - pacman -Syyuu --noconfirm bash curl git jq python sudo wget tree
     - useradd -s /bin/bash -m builder
     - echo 'builder ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
     - |
@@ -35,8 +35,10 @@ task:
       cd /home/builder
       source /etc/profile
       export ANDROID_NDK_ROOT=/opt/android-sdk/ndk-bundle
+      tree /opt/android-sdk/ndk-bundle
       git clone -b ci https://github.com/aldrin1127/gs-suspicion-aosp.git
       cd gs-suspicion-aosp
       for i in aosp twrp; do
         ./generate.sh $i
+      done
       SCRIPT

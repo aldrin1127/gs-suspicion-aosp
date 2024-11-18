@@ -8,4 +8,4 @@ printf '%s.r%s.g%s' \
 rm -rf .git
 popd
 mv .src/{.*,*} . && rm -rf .src
-./gen-android-configs 
+./gen-android-configs
