@@ -1,5 +1,6 @@
 task:
   only_if: $CIRRUS_BRANCH == 'ci'
+  skip: $CIRRUS_BRANCH == 'main'
   timeout_in: 300m
   container:
     image: archlinux:base-devel
@@ -21,8 +22,8 @@ task:
       rm -rf paru-git
       paru -Syu --noconfirm jdk-temurin android-sdk-cmdline-tools-latest
       source /etc/profile
-      sudo chmod g+w /opt/android-sdk
-      sudo chown root:builder /opt/android-sdk
+      sudo chmod g+w $ANDROID_SDK_ROOT
+      sudo chown root:builder $ANDROID_SDK_ROOT
       sdkmanager --update
       yes | sdkmanager --licenses
       yes | sdkmanager "platforms;android-35" "build-tools;35.0.0" "ndk-bundle"
@@ -37,5 +38,5 @@ task:
       git clone -b ci https://github.com/aldrin1127/gs-suspicion-aosp.git
       cd gs-suspicion-aosp
       for i in aosp twrp; do
-        ./generate.sh \$i
+        ./generate.sh $i
       SCRIPT
