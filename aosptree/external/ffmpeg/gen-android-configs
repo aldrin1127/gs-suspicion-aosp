@@ -55,5 +55,5 @@ BASE_CONFIG+=" \
   --x86asmexe=${TOOLS_BASE}/yasm
 "
 
-OPTS_aarch64=""
-OPTS_x86_64"--arch=x86 --cpu=x86-64 --cross-prefix=${TOOLS_BASE}/x86_64/x86_64-linux-android-4.9/bin/x86_64-linux-android-"
+OPTS_aarch64="--arch"
+OPTS_x86_64"--arch=x86 --cpu=x86-64 --cross-prefix=${TOOLS_BASE}/x86_64/x86_64-linux-android-4.9/bin/x86_64-linux-android="

@@ -34,8 +34,8 @@ task:
       su - builder -c /bin/bash <<SCRIPT
       cd /home/builder
       source /etc/profile
-      export ANDROID_NDK_ROOT=/opt/android-sdk/ndk-bundle
-      tree /opt/android-sdk/ndk-bundle
+      export ANDROID_NDK_HOME=/opt/android-sdk/ndk-bundle
+      ls $ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin
       git clone -b ci https://github.com/aldrin1127/gs-suspicion-aosp.git
       cd gs-suspicion-aosp
       for i in aosp twrp; do
