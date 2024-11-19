@@ -1,0 +1,6 @@
+FFMPEG_ARCH_VARIANT := $(TARGET_ARCH_VARIANT)
+ifeq ($(FFMPEG_2ND_ARCH), true)
+   FFMPEG_ARCH_VARIANT := $(TARGET_2ND_ARCH_VARIANT)
+endif
+
+include $(call my-dir)/config-$(FFMPEG_ARCH_VARIANT).mak

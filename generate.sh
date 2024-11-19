@@ -7,8 +7,12 @@ case "${_tree}" in
 esac
 pushd "${_work_dir}/${tree}tree"
   for i in external packages/apps; do
-    for script in `find $i/*/generate.sh`; do
-      "${script}"
-    done
+    pushd "${i}"
+      for dir in *; do
+        pushd "${dir}"
+	  ./generate.sh
+	popd
+      done
+    popd
   done
 popd

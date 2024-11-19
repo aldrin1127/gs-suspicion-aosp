@@ -14,7 +14,7 @@ BASE_CONFIG=" \
   --disable-programs         \
   --disable-random           \
   --disable-rpath            \
-  --disable-static           \
+  --disable-shared           \
   --disable-symver           \
   --enable-gpl               \
   --enable-version3          \
@@ -48,12 +48,55 @@ BASE_CONFIG=" \
 BASE_CONFIG+=" \
   --enable-cross-compile     \
   --target-os=linux          \
+  --cc=${TOOLS_BASE}/clang \
+  --cxx=${TOOLS_BASE}/clang++ \
   --nm=${TOOLS_BASE}/llvm-nm \
   --strip=${TOOLS_BASE}/llvm-strip \
   --ar=${TOOLS_BASE}/llvm-ar \
+  --ld=${TOOLS_BASE}/ld.lld
   --ranlib=${TOOLS_BASE}/llvm-ranlib \
-  --x86asmexe=${TOOLS_BASE}/yasm
+  --x86asmexe=${TOOLS_BASE}/yasm \
+  --extra-cflags=\"-s -static --static\" \
+  --extra-cxxflags=\"-s -static --static\" \
+  --extra-ldflags=\"-s -static --static\"
 "
 
-OPTS_aarch64="--arch"
-OPTS_x86_64"--arch=x86 --cpu=x86-64 --cross-prefix=${TOOLS_BASE}/x86_64/x86_64-linux-android-4.9/bin/x86_64-linux-android="
+OPTS_aarch64=" \
+  --arch=aarch64 \
+  --cpu=armv9-a  \
+  --cross-prefix=${TOOLS_BASE}/aarch64/aarch64-linux-android-4.9/bin/aarch64-linux-android-
+"
+OPTS_x86_64=" \
+  --arch=x86   \
+  --cpu=x86-64 \
+  --cross-prefix=${TOOLS_BASE}/x86_64/x86_64-linux-android-4.9/bin/x86_64-linux-android=
+"
+
+for TARGET in $TARGETS; do
+  ARCH_OPTS=OPTS_`echo $TARGET`
+  ./configure ${!ARCH_OPTS} $BASE_CONFIG
+  mkdir -p android/include
+  mv ffbuild/config.mak android/config-${TARGET}.mak
+  cat config.h | sed -e "s/^#define \(ARCH_.*\|HAVE_.*\) \(.*\)/#ifdef \1\n#undef \1\n#endif\n#define \1 \2/g" > android/include/config-${TARGET}.h
+done
+
+GENERATED_FILES=" \
+    config_components.h \
+    libavutil/avconfig.h \
+    libavcodec/codec_list.c \
+    libavcodec/parser_list.c \
+    libavcodec/bsf_list.c \
+    libavformat/muxer_list.c \
+    libavformat/protocol_list.c \
+"
+for GEN in $GENERATED_FILES; do
+    mkdir -p android/include/`dirname $GEN`
+    mv $GEN android/include/$GEN
+done
+
+cat > android/include/libavutil/ffversion.h <<EOF
+#ifndef FFVERSION_H
+#define FFVERSION_H
+#define FFMPEG_VERSION "`cat VERSION` (Gamestar Suspicion)"
+#endif /* FFVERSION_H */
+EOF

@@ -20,13 +20,7 @@ task:
       makepkg -sic --noconfirm
       popd
       rm -rf paru-git
-      paru -Syu --noconfirm jdk-temurin android-sdk-cmdline-tools-latest
-      source /etc/profile
-      sudo chmod g+w /opt/android-sdk
-      sudo chown root:builder /opt/android-sdk
-      sdkmanager --update
-      yes | sdkmanager --licenses
-      yes | sdkmanager "platforms;android-35" "build-tools;35.0.0" "ndk-bundle"
+      paru -Syu --noconfirm jdk-temurin android-ndk
       SCRIPT
   
   Generate_script:
@@ -34,7 +28,6 @@ task:
       su - builder -c /bin/bash <<SCRIPT
       cd /home/builder
       source /etc/profile
-      export ANDROID_NDK_HOME=/opt/android-sdk/ndk-bundle
       ls \$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin
       git clone -b ci https://github.com/aldrin1127/gs-suspicion-aosp.git
       cd gs-suspicion-aosp
