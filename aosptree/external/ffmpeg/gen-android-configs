@@ -97,27 +97,38 @@ BASE_CONFIG+=" \
   --target-os=linux           \
   --cc=${TOOLS_BASE}/clang    \
   --cxx=${TOOLS_BASE}/clang++ \
-  --nm=${TOOLS_BASE}/llvm-nm  \
-  --strip=${TOOLS_BASE}/llvm-strip \
   --ar=${TOOLS_BASE}/llvm-ar  \
-  --ld=${TOOLS_BASE}/ld.lld   \
-  --ranlib=${TOOLS_BASE}/llvm-ranlib \
+  --as=${TOOLS_BASE}/llvm-as  \
+  --ld=${TOOLS_BASE}/ld64.lld \
+  --nm=${TOOLS_BASE}/llvm-nm  \
+  --ranlib=${TOOLS_BASE}/llvm-ranlib   \
+  --strip=${TOOLS_BASE}/llvm-strip     \
   --windres=${TOOLS_BASE}/llvm-windres \
-  --x86asmexe=${TOOLS_BASE}/yasm \
-  --extra-cflags=\"-s -static --static\" \
-  --extra-cxxflags=\"-s -static --static\" \
-  --extra-ldflags=\"-s -static --static\"
+  --x86asmexe=${TOOLS_BASE}/yasm
 "
 
 OPTS_aarch64=" \
   --arch=aarch64 \
   --cpu=armv9-a  \
-  --cross-prefix=${TOOLS_BASE}/aarch64/aarch64-linux-android-4.9/bin/aarch64-linux-android-
+  --cross-prefix=${TOOLS_BASE}/aarch64/aarch64-linux-android-4.9/bin/aarch64-linux-android- \
+  --enable-mmal  \
+  --enable-omx-rpi
 "
 OPTS_x86_64=" \
   --arch=x86   \
   --cpu=x86-64 \
-  --cross-prefix=${TOOLS_BASE}/x86_64/x86_64-linux-android-4.9/bin/x86_64-linux-android=
+  --cross-prefix=${TOOLS_BASE}/x86_64/x86_64-linux-android-4.9/bin/x86_64-linux-android- \
+  --extra-cflags=-m32 \
+  --enable-cuda-llvm  \
+  --enable-cuda-nvcc  \
+  --enable-cuvid      \
+  --enable-ffnvcodec  \
+  --enable-libmfx     \
+  --enable-libvpl     \
+  --enable-libnpp     \
+  --enable-nvdec      \
+  --enable-nvenc      \
+  --enable-vdpau
 "
 
 for TARGET in $TARGETS; do
@@ -146,6 +157,6 @@ done
 cat > android/include/libavutil/ffversion.h <<EOF
 #ifndef FFVERSION_H
 #define FFVERSION_H
-#define FFMPEG_VERSION "`cat VERSION` (Gamestar Suspicion)"
+#define FFMPEG_VERSION "`cat VERSION` (Gamestar Suspicion [AOSP])"
 #endif /* FFVERSION_H */
 EOF
