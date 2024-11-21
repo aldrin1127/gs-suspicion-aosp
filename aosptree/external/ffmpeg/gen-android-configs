@@ -50,45 +50,42 @@ BASE_CONFIG+=" \
   --disable-appkit          \
   --disable-avfoundation    \
   --disable-coreimage       \
+  --disable-mediafoundation \
   --disable-metal           \
   --disable-pocketsphinx    \
   --disable-schannel        \
+  --disable-sdl2            \
   --disable-securetransport \
   --disable-xlib            \
   --enable-alsa        \
   --enable-avisynth    \
   --enable-bzlib       \
   --enable-chromaprint \
-  --enable-crystalhd   \
   --enable-decklink    \
   --enable-frei0r      \
   --enable-gcrypt      \
   --enable-gmp         \
   --enable-gnutls      \
-  --enable-harfbuzz    \
   --enable-iconv       \
   --enable-ladspa      \
   --enable-lcms2       \
   --enable-lv2         \
   --enable-lzma        \
+  --enable-mbedtls     \
   --enable-mediacodec  \
   --enable-openal      \
   --enable-opencl      \
   --enable-opengl      \
   --enable-openssl     \
-  --enable-sdl2        \
   --enable-sndio       \
   --enable-vapoursynth \
-  --enable-zlib        \
+  --enable-zlib
 "
 BASE_CONFIG+=" \
   --disable-audiotoolbox \
   --disable-videotoolbox \
   --enable-amf      \
   --enable-libdrm   \
-  --enable-libmfx   \
-  --enable-libvpl   \
-  --enable-mmal     \
   --enable-omx      \
   --enable-rkmpp    \
   --enable-v4l2-m2m \
