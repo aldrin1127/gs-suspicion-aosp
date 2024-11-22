@@ -50,6 +50,7 @@ BASE_CONFIG+=" \
   --disable-appkit          \
   --disable-avfoundation    \
   --disable-coreimage       \
+  --disable-gnutls          \
   --disable-mediafoundation \
   --disable-metal           \
   --disable-pocketsphinx    \
@@ -65,13 +66,12 @@ BASE_CONFIG+=" \
   --enable-frei0r      \
   --enable-gcrypt      \
   --enable-gmp         \
-  --enable-gnutls      \
   --enable-iconv       \
   --enable-ladspa      \
   --enable-lcms2       \
+  --enable-librtmp     \
   --enable-lv2         \
   --enable-lzma        \
-  --enable-mbedtls     \
   --enable-mediacodec  \
   --enable-openal      \
   --enable-opencl      \
