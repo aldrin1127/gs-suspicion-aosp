@@ -106,12 +106,12 @@ BASE_CONFIG+=" \
 "
 
 OPTS_aarch64=" \
-  --arch=aarch64 \
-  --cpu=armv9-a  \
+  --arch=arm64  \
+  --cpu=armv8-a \
   --cc=${TOOLS_BASE}/aarch64-linux-android35-clang    \
   --cxx=${TOOLS_BASE}/aarch64-linux-android35-clang++ \
   --cross-prefix=${TOOLS_BASE}/aarch64/aarch64-linux-android-4.9/bin/aarch64-linux-android- \
-  --enable-mmal  \
+  --enable-mmal \
   --enable-omx-rpi
 "
 OPTS_x86_64=" \
